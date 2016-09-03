@@ -1,1 +1,1 @@
-python3 sched.py
+go run getter.go
