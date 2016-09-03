@@ -1,1 +1,1 @@
-python3 ~/.sched.py
+python3 sched.py
