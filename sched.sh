@@ -1,1 +1,1 @@
-go run getter.go
+go run printer.go

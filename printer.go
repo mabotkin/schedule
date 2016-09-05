@@ -1,5 +1,5 @@
 // Jack Schefer, began 9/3/16
-// Purpose: to print out the schedule without scraping it from the website
+// Purpose: to print out the schedule using the ION API. 
 //
 package main
 //
@@ -62,9 +62,12 @@ func main() {
    //
    blocks := data["results"].([]interface{})[0].(map[string]interface{})["day_type"].(map[string]interface{})["blocks"].([]interface{})
    for _, b := range blocks {
-      name  := b.(map[string]interface{})["name"]
+      name  := b.(map[string]interface{})["name"].(string)
       start := b.(map[string]interface{})["start"].(string)
       end   := b.(map[string]interface{})["end"].(string)
+      if strings.Contains(name, "<br>") {
+         name = name[0: strings.Index(name, "<br>")]
+      }
       shrs,serr := strconv.Atoi(start[0:2])
       ehrs,eerr := strconv.Atoi(end[0:2])
       if serr == nil && shrs > 12 {
@@ -73,8 +76,9 @@ func main() {
       if eerr == nil && ehrs > 12 {
          end = strings.Replace(end, strconv.Itoa(ehrs), strconv.Itoa(ehrs - 12), 1)
       }
-      fmt.Printf("%s:  \t%s - %s\n", name, start, end)
+      fmt.Printf("%s:  \t%s\t-   %s\n", name, start, end)
    }
+   fmt.Println()
 }
 //
 ///////////////////////////////////////////////////////////
