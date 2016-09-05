@@ -6,6 +6,8 @@ package main
 import(
    "fmt"
    "time"
+   "strconv"
+   "strings"
    "net/http"
    "encoding/json"
    "io/ioutil"
@@ -61,9 +63,17 @@ func main() {
    blocks := data["results"].([]interface{})[0].(map[string]interface{})["day_type"].(map[string]interface{})["blocks"].([]interface{})
    for _, b := range blocks {
       name  := b.(map[string]interface{})["name"]
-      start := b.(map[string]interface{})["start"]
-      end   := b.(map[string]interface{})["end"]
-      fmt.Printf("%s: %s - %s\n", name, start, end)
+      start := b.(map[string]interface{})["start"].(string)
+      end   := b.(map[string]interface{})["end"].(string)
+      shrs,serr := strconv.Atoi(start[0:2])
+      ehrs,eerr := strconv.Atoi(end[0:2])
+      if serr == nil && shrs > 12 {
+         start = strings.Replace(start, strconv.Itoa(shrs), strconv.Itoa(shrs - 12), 1)
+      }
+      if eerr == nil && ehrs > 12 {
+         end = strings.Replace(end, strconv.Itoa(ehrs), strconv.Itoa(ehrs - 12), 1)
+      }
+      fmt.Printf("%s:  \t%s - %s\n", name, start, end)
    }
 }
 //
