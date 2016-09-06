@@ -2,4 +2,4 @@
 JSON="$(curl -s https://ion.tjhsst.edu/api/schedule?format=json)"
 PARSE="$(echo $JSON | grep -Po  '{\"order\":[^,]*,\"name\":[^,]*,\"start\":[^,]*,\"end\":[^}]*}')"
 #PARSE="$(echo $JSON | grep -P  '/.*/')"
-echo $PARSE
+echo ${PARSE[0]}
