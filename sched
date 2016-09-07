@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+#  NOTE: this is, without a doubt, the sketchiest and ugliest code
+#  i have ever written.  please pipe all complaints regarding style,
+#  unreadability, inefficiency, or overall terribleness to /dev/null
+#
 # parse schedule as json
 JSON="$(curl -s https://ion.tjhsst.edu/api/schedule?format=json)"
 # regex json into class blocks
