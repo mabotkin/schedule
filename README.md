@@ -2,21 +2,21 @@
 
 Get the current TJHSST bell schedule from the command line.
 
-To install, run
+To install, run:
 
 ```bash
 $ make install
 ```
 
-Installation will likely require <code>sudo</code>
+Installation will likely require <code>sudo</code>.
 
-After installation, run the command
+After installation, run the command:
 
 ```bash
 $ sched
 ```
 
-To uninstall, run
+To uninstall, run (also likely requires sudo):
 
 ```bash
 $ make uninstall
