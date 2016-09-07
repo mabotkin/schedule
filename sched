@@ -14,7 +14,9 @@ readarray -t ARRAY <<<"$PARSE"
 DATE="$(echo $JSON | grep -Po  '(?<=\"date\":\")[^,]*(?=\")')"
 DAYNAME="$(echo $JSON | grep -Po  '(?<=\"day_type\":{\"name\":\")[^,]*(?=\")')"
 DATEPARSED="$(date --date="$DATE" "+%A, %B %d, %Y" )"
+NOW="$(date "+%T")"
 echo -e "\n$DATEPARSED"
+echo -e "Time: $NOW"
 echo -e "$DAYNAME\n"
 # loop and print
 for i in "${ARRAY[@]}"
@@ -26,7 +28,6 @@ do
 	END="$(echo $i | grep -Po '(?<=\"end\":\")[^\"]*' | sed 's/<br>/ /g')"
 	STARTTIME="$(date --date="$START" "+%T" )"
 	ENDTIME="$(date --date="$END" "+%T" )"
-	NOW="$(date "+%T")"
 	if [[ "$NOW" > "$STARTTIME" && "$NOW" < "$ENDTIME" ]]
 	then
 		BOLD="$(tput setaf 1)"
