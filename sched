@@ -8,8 +8,11 @@ readarray -t ARRAY <<<"$PARSE"
 # loop and print
 for i in "${ARRAY[@]}"
 do
-	# pull out name
+	# pull out name - replace <br> with space
 	NAME="$(echo $i | grep -Po '(?<=\"name\":\")[^\"]*' | sed 's/<br>/ /g')"
-	# check name for <br>
-	echo "$NAME"
+	#now pull times
+	START="$(echo $i | grep -Po '(?<=\"start\":\")[^\"]*' | sed 's/<br>/ /g')"
+	END="$(echo $i | grep -Po '(?<=\"end\":\")[^\"]*' | sed 's/<br>/ /g')"
+	TEXT="$NAME: \t\t\t$START - $END"
+	echo -e "$TEXT"
 done
