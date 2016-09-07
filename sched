@@ -24,6 +24,16 @@ do
 	#now pull times
 	START="$(echo $i | grep -Po '(?<=\"start\":\")[^\"]*' | sed 's/<br>/ /g')"
 	END="$(echo $i | grep -Po '(?<=\"end\":\")[^\"]*' | sed 's/<br>/ /g')"
-	printf "%-25s %-5s - %-5s\n" "$NAME" "$START" "$END"
+	STARTTIME="$(date --date="$START" "+%T" )"
+	ENDTIME="$(date --date="$END" "+%T" )"
+	NOW="$(date "+%T")"
+	if [[ "$NOW" > "$STARTTIME" && "$NOW" < "$ENDTIME" ]]
+	then
+		BOLD="$(tput setaf 1)"
+		NORMAL="$(tput sgr0)"
+		printf "${BOLD}%-25s %-5s - %-5s${NORMAL}\n" "$NAME" "$START" "$END"
+	else
+		printf "%-25s %-5s - %-5s\n" "$NAME" "$START" "$END"
+	fi
 done
 printf "\n"

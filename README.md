@@ -22,6 +22,8 @@ To uninstall, run (also likely requires sudo):
 $ make uninstall
 ```
 
-This program has dependencies on many GNU/Linux utilities such as <code>curl</code>, <code>grep</code>, and <code>sed</code>.  These are most likely installed, but if not are required for this program to function.
+The current period, if applicable, is highlighted in red.
+
+This program has dependencies on many GNU/Linux utilities such as <code>curl</code>, <code>grep</code>, <code>sed</code>, and <code>tput</code>.  These are most likely installed, but if not are required for this program to function.
 
 Uses TJHSST Intranet3 (Ion) Web API.
