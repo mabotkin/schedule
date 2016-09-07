@@ -6,4 +6,10 @@ PARSE="$(echo $JSON | grep -Po  '{\"order\":[^,]*,\"name\":[^,]*,\"start\":[^,]*
 # split class blocks into array elements
 readarray -t ARRAY <<<"$PARSE"
 # loop and print
-
+for i in "${ARRAY[@]}"
+do
+	# pull out name
+	NAME="$(echo $i | grep -Po '(?<=\"name\":\")[^\"]*' | sed 's/<br>/ /g')"
+	# check name for <br>
+	echo "$NAME"
+done
