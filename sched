@@ -1,5 +1,9 @@
 #!/bin/bash
+# parse schedule as json
 JSON="$(curl -s https://ion.tjhsst.edu/api/schedule?format=json)"
+# regex json into class blocks
 PARSE="$(echo $JSON | grep -Po  '{\"order\":[^,]*,\"name\":[^,]*,\"start\":[^,]*,\"end\":[^}]*}')"
-#PARSE="$(echo $JSON | grep -P  '/.*/')"
-echo ${PARSE[0]}
+# split class blocks into array elements
+readarray -t ARRAY <<<"$PARSE"
+# loop and print
+
