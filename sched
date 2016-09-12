@@ -11,9 +11,9 @@ PARSE="$(echo $JSON | grep -Po  '{\"order\":[^,]*,\"name\":[^,]*,\"start\":[^,]*
 # split class blocks into array elements
 readarray -t ARRAY <<<"$PARSE"
 # some header stuff
-DATE="$(echo $JSON | grep -Po  '(?<=\"date\":\")[^,]*(?=\")')"
-DAYNAME="$(echo $JSON | grep -Po  '(?<=\"day_type\":{\"name\":\")[^,]*(?=\")')"
-DATEPARSED="$(date --date="$DATE" "+%A, %B %d, %Y" )"
+DATE="$(echo $JSON | grep -Po  '(?<=\"date\":\")[^,]*(?=\")' | sed 's/<br>/ /g')"
+DAYNAME="$(echo $JSON | grep -Po  '(?<=\"day_type\":{\"name\":\")[^,]*(?=\")' | sed 's/<br>/ /g')"
+DATEPARSED="$(date --date="$DATE" "+%A, %B %d, %Y" | sed 's/<br>/ /g')"
 NOW="$(date "+%T")"
 echo -e "\n$DATEPARSED"
 echo -e "Time: $NOW"
