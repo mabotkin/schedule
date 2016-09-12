@@ -28,4 +28,6 @@ This program has dependencies on many GNU/Linux utilities such as <code>curl</co
 
 Originally forked from [jcschefer](https://github.com/jcschefer) and later migrated into standalone repository for further personal development.
 
+Note: The point of this project was a port to Bash script - I understand that this does not have the functionality that could be possible in a language such as Python, and quite frankly, I don't care.
+
 Uses TJHSST Intranet3 (Ion) Web API.
