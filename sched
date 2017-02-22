@@ -22,17 +22,25 @@ echo -e "$DAYNAME\n"
 for i in "${ARRAY[@]}"
 do
 	# pull out name - replace <br> with space
-	NAME="$(echo $i | grep -Po '(?<=\"name\":\")[^\"]*' | sed 's/<br>/ /g'):" 
+	NAME="$(echo $i | grep -Po '(?<=\"name\":\")[^\"]*' | sed 's/<br>/ /g'):"
 	#now pull times
 	START="$(echo $i | grep -Po '(?<=\"start\":\")[^\"]*' | sed 's/<br>/ /g')"
 	END="$(echo $i | grep -Po '(?<=\"end\":\")[^\"]*' | sed 's/<br>/ /g')"
 	STARTTIME="$(date --date="$START" "+%T" )"
 	ENDTIME="$(date --date="$END" "+%T" )"
+	TIMELEFT=`expr $(date --date="$END" "+%s") - $(date --date="$NOW" "+%s")` #Time remaining in seconds
+	HOURS=`expr $TIMELEFT / 3600`
+	MINS=`expr $TIMELEFT % 3600 / 60`
+	if [ $MINS -lt 10 ];
+	then
+		MINS="0$MINS"
+	fi
+	TIMELEFT="$HOURS:$MINS"
 	if [[ "$NOW" > "$STARTTIME" && "$NOW" < "$ENDTIME" ]]
 	then
 		BOLD="$(tput setaf 1)"
 		NORMAL="$(tput sgr0)"
-		printf "${BOLD}%-25s %-5s - %-5s${NORMAL}\n" "$NAME" "$START" "$END"
+		printf "${BOLD}%-25s %-5s - %-5s\n%-25s %-4s${NORMAL}\n" "$NAME" "$START" "$END" "Time Remaining:" "$TIMELEFT"
 	else
 		printf "%-25s %-5s - %-5s\n" "$NAME" "$START" "$END"
 	fi
